@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .mobile-nav-link {
+    @apply block py-2 text-sm font-medium text-gray-300 hover:text-[#00c269];
+  }
+
+  .country-dropdown {
+    @apply absolute top-[71px] left-0 min-w-[160px] bg-white rounded-[12px] py-3 z-50 shadow-lg;
+    animation: fadeIn 0.15s ease-out;
+  }
+
+  .country-option {
+    @apply w-full px-4 py-[10px] text-left flex items-center gap-3 hover:bg-[#f8f9fa] text-[#333333] transition-all duration-150;
+  }
+
+  .country-flag {
+    @apply relative w-[22px] h-[15px] overflow-hidden;
+  }
+
+  .country-flag img {
+    @apply rounded-[4px] object-cover;
+  }
+
+  .country-name {
+    @apply text-sm font-medium tracking-wide;
+  }
+
+  .country-selector {
+    @apply h-[71px] px-4 flex items-center gap-2 cursor-pointer relative border-b-[3px] border-transparent hover:border-[#0d6efd];
+  }
+
+  .country-selector.active {
+    @apply border-[#0d6efd];
+  }
+
+  .nav-item {
+    @apply h-[71px] px-4 flex items-center text-[#e6e6e6] hover:text-white transition-colors duration-150 relative;
+  }
+
+  .nav-item.offers-link {
+    @apply border-b-[3px] border-transparent hover:border-[#0d6efd];
+  }
+
+  .user-dropdown {
+    @apply absolute top-[71px] right-0 w-[200px] bg-white rounded-lg py-2 z-50 shadow-lg;
+    animation: fadeIn 0.15s ease-out;
+  }
+
+  .user-dropdown-item {
+    @apply w-full px-5 py-2.5 text-left text-sm font-medium text-gray-700 hover:bg-[#f8f9fa] hover:text-[#0d6efd] transition-all duration-150;
+  }
+
+  .sell-button {
+    @apply bg-[#00c269] hover:bg-[#00b05e] px-6 py-2.5 rounded-md text-white text-sm font-medium transition-colors;
+  }
+
+  .new-badge {
+    @apply absolute top-2.5 -right-1 bg-[#FF0000] text-[10px] px-1  rounded text-white font-medium;
+    animation: shimmer 1.5s ease-in-out infinite;
+    box-shadow: 0 0 5px rgba(255, 76, 76, 0.5);
+  }
+}
+
+.nav-item {
+  font-weight: 900 !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.7;
+    filter: brightness(1.3);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-lato);
+}
+
+.slick-dots li.slick-active div {
+  background-color: #124d99 !important;
+}
+
