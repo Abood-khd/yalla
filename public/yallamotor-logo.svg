@@ -1,0 +1,7 @@
+<svg width="150" height="40" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M30.5 20C30.5 25.7989 25.7989 30.5 20 30.5C14.2011 30.5 9.5 25.7989 9.5 20C9.5 14.2011 14.2011 9.5 20 9.5C25.7989 9.5 30.5 14.2011 30.5 20Z" fill="white" stroke="#124d99"/>
+  <path d="M20 11L23.9389 18.5H16.0611L20 11Z" fill="#124d99"/>
+  <path d="M16.0611 21.5L20 29L23.9389 21.5H16.0611Z" fill="#124d99"/>
+  <path d="M40 15.5H60.5V17.5H40V15.5Z" fill="white"/>
+  <text x="70" y="25" fill="white" font-family="Arial" font-size="20" font-weight="bold">YallaMotor</text>
+</svg> 
