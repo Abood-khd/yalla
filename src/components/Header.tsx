@@ -13,7 +13,7 @@ const Header = () => {
           src="/webp_spotlight_web_unnamed__2_.webp" 
           alt="Dubai skyline with car" 
       
-          className="w-full h-full object-cover object-right md:object-center"
+          className="w-full h-full  object-right md:object-center"
         />
       </div>
       
