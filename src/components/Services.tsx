@@ -8,7 +8,7 @@ const Services = () => {
         <div className="flex flex-wrap justify-start  gap-4 overflow-hidden px-5 lg:px-20">
             <div className=" w-full sm:w-[442px] p-2 flex items-start gap-4 h-full bg-white border border-gray-300 rounded-lg shadow-md text-center">
                 <div className="w-[150px] max-w-full">
-                    <img src="/service-sell.png" alt="Sell Your Car" className="w-full h-auto object-contain" />
+                    <img src="/service-sell.png" alt="Sell Your Car" className="w-full h-auto object-contain" loading="lazy" />
                 </div>
                 <div className="w-full h-full flex-col space-y-2 text-left ">
                     <h3 className="text-[16px] ">SELL YOUR CAR</h3>
@@ -18,7 +18,7 @@ const Services = () => {
             </div>
             <div className="w-full sm:w-[442px] p-2 flex items-start gap-4 h-full bg-white border border-gray-300 rounded-lg shadow-md text-center">
                 <div className="w-[150px] ">
-                    <img src="/service-report.png" alt="report Your Car" className="w-[150px] h-[120px] object-contain" />
+                    <img src="/service-report.png" alt="report Your Car" className="w-[150px] h-[120px] object-contain" loading="lazy" />
                 </div>
                 <div className="w-full h-full flex-col space-y-2 text-left ">
                     <h3 className="text-[16px] ">SELL YOUR CAR</h3>
@@ -28,7 +28,7 @@ const Services = () => {
             </div>
             <div className="w-full sm:w-[442px] p-2 flex items-start gap-4 h-full bg-white border border-gray-300 rounded-lg shadow-md text-center">
                 <div className="w-[150px] ">
-                    <img src="/service-valuation.png" alt="service-valuation Your Car" className="w-[150px] h-[120px] object-contain" />
+                    <img src="/service-valuation.png" alt="service-valuation Your Car" className="w-[150px] h-[120px] object-contain" loading="lazy" />
                 </div>
                 <div className="w-full h-full flex-col space-y-2 text-left ">
                     <h3 className="text-[16px] ">SELL YOUR CAR</h3>
@@ -38,7 +38,7 @@ const Services = () => {
             </div>
             <div className="w-full sm:w-[442px] p-2 flex items-start gap-4 h-full bg-white border border-gray-300 rounded-lg shadow-md text-center">
                 <div className="w-[150px] ">
-                    <img src="/service-sell.png" alt="Sell service-valuation Car" className="w-[150px] h-[120px] object-contain" />
+                    <img src="/service-sell.png" alt="Sell service-valuation Car" className="w-[150px] h-[120px] object-contain" loading="lazy" />
                 </div>
                 <div className="w-full h-full flex-col space-y-2 text-left ">
                     <h3 className="text-[16px] ">SELL YOUR CAR</h3>
@@ -48,7 +48,7 @@ const Services = () => {
             </div>
             <div className="w-full sm:w-[442px] p-2 flex items-start gap-4 h-full bg-white border border-gray-300 rounded-lg shadow-md text-center">
                 <div className="w-[150px] ">
-                    <img src="/service-sell.png" alt="Sell Your service-valuation" className="w-[150px] h-[120px] object-contain" />
+                    <img src="/service-sell.png" alt="Sell Your service-valuation" className="w-[150px] h-[120px] object-contain" loading="lazy" />
                 </div>
                 <div className="w-full h-full flex-col space-y-2 text-left ">
                     <h3 className="text-[16px] ">SELL YOUR CAR</h3>
@@ -58,7 +58,7 @@ const Services = () => {
             </div>
             <div className="w-full sm:w-[442px] p-2 flex items-start gap-4 h-full bg-white border border-gray-300 rounded-lg shadow-md text-center">
                 <div className="w-[150px] ">
-                    <img src="/service-sell.png" alt="Sell Your Car" className="w-[150px] h-[120px] object-contain" />
+                    <img src="/service-sell.png" alt="Sell Your Car" className="w-[150px] h-[120px] object-contain" loading="lazy" />
                 </div>
                 <div className="w-full h-full flex-col space-y-2 text-left ">
                     <h3 className="text-[16px] ">SELL YOUR CAR</h3>
