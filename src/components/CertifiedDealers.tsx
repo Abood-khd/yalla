@@ -39,7 +39,7 @@ const dealers: Dealer[] = [
   },
   {
     id: '4',
-    logo: '/Swaidan_motors (1).jpg',
+    logo: '/SUB-BRAND_LOGO__USED_CARS__EN1 (1).png',
     name: 'Cars24',
     width: 120,
     height: 40,
@@ -47,7 +47,7 @@ const dealers: Dealer[] = [
   },
   {
     id: '5',
-    logo: '/Swaidan_motors (1).jpg',
+    logo: '/SUB-BRAND_LOGO__USED_CARS__EN1 (1).png',
     name: 'Al Naboodah - Swaidan Motors',
     width: 120,
     height: 40,
