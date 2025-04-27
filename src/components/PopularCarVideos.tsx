@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import YouTubeIcon from '@mui/icons-material/YouTube';
+import CustomSlider from './CustomSlider';
 
 interface CarVideo {
   id: string;
@@ -18,7 +18,7 @@ const carVideos: CarVideo[] = [
   {
     id: '1',
     videoId: 'DlUotgqnbRk',
-    title: 'The Perfect Budget Chinese Sedan? | Geely Preface'
+    title: 'The Perfect Budget  Sedan? | Geely '
   },
   {
     id: '2',
@@ -57,6 +57,7 @@ function NextArrow({ onClick }: { onClick?: () => void }) {
     <div
       className="slick-arrow slick-next custom-arrow"
       onClick={onClick}
+      suppressHydrationWarning={true}
       style={{
         position: 'absolute',
         right: '-30px',
@@ -84,6 +85,7 @@ function PrevArrow({ onClick }: { onClick?: () => void }) {
     <div
       className="slick-arrow slick-prev custom-arrow"
       onClick={onClick}
+      suppressHydrationWarning={true}
       style={{
         position: 'absolute',
         left: '-30px',
@@ -152,20 +154,25 @@ export default function PopularCarVideos() {
         breakpoint: 768,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToScroll: 1.5,
           arrows: false,
         }
       },
       {
         breakpoint: 640,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1.5,
           slidesToScroll: 1,
           arrows: false,
           dots: true,
         }
       }
-    ]
+    ],
+    appendDots: (dots: React.ReactNode) => (
+      <div suppressHydrationWarning={true}>
+        <ul suppressHydrationWarning={true}>{dots}</ul>
+      </div>
+    ),
   };
 
   const handleVideoClick = (videoId: string) => {
@@ -173,7 +180,7 @@ export default function PopularCarVideos() {
   };
 
   return (
-    <div className="container mx-auto px-3 mt-5 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-4 lg:py-8">
+    <div className="container mx-auto px-3 mt-5 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-4 lg:py-8" suppressHydrationWarning={true}>
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4 lg:space-y-0 mb-6 lg:mb-8">
         <div className="space-y-3 w-full lg:w-auto">
           <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
@@ -185,22 +192,22 @@ export default function PopularCarVideos() {
           <div className="flex flex-wrap items-center gap-3">
             <span className="text-xs sm:text-sm text-gray-800">Subscribe Now:</span>
             <div className="flex items-center gap-2">
-              <button className="flex items-center gap-1.5 bg-red-600 text-white px-2 py-1 text-xs sm:text-sm hover:bg-red-700 transition-colors">
+              <button className="flex items-center gap-1.5 bg-red-600 text-white px-2 py-1 text-xs sm:text-sm hover:bg-red-700 transition-colors" suppressHydrationWarning={true}>
                 <YouTubeIcon sx={{ fontSize: { xs: 16, sm: 20 } }} /> YouTube
               </button>
               <span className="text-xs sm:text-sm text-gray-500 border border-gray-200 px-2 py-1">70K</span>
             </div>
           </div>
         </div>
-        <button className="w-full sm:w-auto px-4 py-1.5 text-xs sm:text-sm text-[#124d99] hover:bg-[#124d99] hover:text-white border border-[#124d99] rounded transition-colors">
+        <button className="hidden lg:block w-full sm:w-auto px-4 py-1.5 text-xs sm:text-sm text-[#124d99] hover:bg-[#124d99] hover:text-white border border-[#124d99] rounded transition-colors" suppressHydrationWarning={true}>
           View All
         </button>
       </div>
 
       <div className="relative px-0 sm:px-4 md:px-6 lg:px-8">
-        <Slider {...settings} className="video-slider">
+        <CustomSlider settings={settings} className="video-slider">
           {carVideos.map((video) => (
-            <div key={video.id} className="px-1.5 sm:px-2">
+            <div key={video.id} className="px-1.5 sm:px-2 border border-gray-200 rounded-lg lg:border-none">
               <div className="bg-white overflow-hidden">
                 <div className="relative aspect-video cursor-pointer group" onClick={() => handleVideoClick(video.videoId)}>
                   {activeVideo === video.videoId ? (
@@ -232,7 +239,7 @@ export default function PopularCarVideos() {
               </div>
             </div>
           ))}
-        </Slider>
+        </CustomSlider>
       </div>
 
       <style jsx global>{`

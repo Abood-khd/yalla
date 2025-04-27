@@ -13,6 +13,7 @@ interface Country {
   flagSrc: string;
 }
 
+
 const countries: Country[] = [
   { code: 'UAE', name: 'UAE', flagSrc: '/images/flags/uae.svg' },
   { code: 'KSA', name: 'KSA', flagSrc: '/images/flags/ksa.svg' },
@@ -60,11 +61,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-white text-[#0f1420] shadow-md' 
-        : 'bg-transparent text-white'
-    }`}>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white text-[#0f1420]' : 'bg-transparent text-white'} flex justify-between items-center`}>
       {/* Top Navigation Bar */}
       <div className="container mx-auto px-4 lg:px-18">
         <div className="flex items-center justify-between h-[71px]">
@@ -229,7 +226,7 @@ const Navbar = () => {
 
           {/* Right Side Actions */}
           <div className="flex items-center justify-end">
-             <Link href="/sell-my-car" className="px-4 py-1.5 bg-[#00c269] hover:bg-[#00b05e] rounded-[6px] text-white text-sm font-medium transition-colors whitespace-nowrap mr-4">
+             <Link href="/sell-my-car" className="hidden md:block px-4 py-1.5 bg-[#00c269] hover:bg-[#00b05e] rounded-[6px] text-white text-sm font-medium transition-colors whitespace-nowrap mr-4">
                 Sell My Car
              </Link>
             <div className="flex flex-row-reverse items-center">

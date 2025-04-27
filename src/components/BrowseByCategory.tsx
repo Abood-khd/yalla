@@ -1,17 +1,19 @@
 'use client';
 
 import React from 'react';
-import { Tabs, Tab } from '@mui/material';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import HydrationFix from './HydrationFix';
 
-// Icons for transmission types
+const DynamicTabs = dynamic(() => import('@mui/material/Tabs').then(mod => mod.default), { ssr: false });
+const DynamicTab = dynamic(() => import('@mui/material/Tab').then(mod => mod.default), { ssr: false });
+
 const transmissionIcons = {
   automatic: '/icons/automatic.svg',
   manual: '/icons/manual.svg',
   cvt: '/icons/cvt.svg'
 };
 
-// Icons for fuel types
 const fuelIcons = {
   petrol: '/icons/petrol.svg',
   diesel: '/icons/diesel.svg',
@@ -19,7 +21,6 @@ const fuelIcons = {
   hybrid: '/icons/hybrid.svg'
 };
 
-// Car body types with their icons
 const bodyTypes = [
   { type: 'SUV', icon: '/slide_show_01.png' },
   { type: 'Sedan', icon: '/slide_show_01.png' },
@@ -28,13 +29,9 @@ const bodyTypes = [
   { type: 'Convertible', icon: '/slide_show_01.png' },
   { type: 'Pickup Truck', icon: '/slide_show_01.png' },
   { type: 'Wagon', icon: '/slide_show_01.png' },
-  { type: 'Van', icon: '/slide_show_01.png' },
-  { type: 'Truck', icon: '/slide_show_01.png' },
-  { type: 'Bus', icon: '/slide_show_01.png' },
-  { type: 'Other', icon: '/slide_show_01.png' }
+
 ];
 
-// UAE Cities
 const cities = [
   'All Cities',
   'Abu Dhabi',
@@ -46,7 +43,6 @@ const cities = [
   'Sharjah'
 ];
 
-// Years
 const years = [
   '2023', '2022', '2021', '2020',
   '2019', '2018', '2017', '2016',
@@ -64,10 +60,10 @@ export default function BrowseByCategory() {
     switch (selectedTab) {
       case 'BODY STYLE':
         return (
-          <div className="w-full  flex flex-wrap gap-4 md:gap-6 lg:gap-10 md:max-w-[950px] mt-5 md:mt-6  lg:mt-8">
+          <div className="w-full bg-[#fff] lg:bg-transparent  grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6 lg:gap-10 md:max-w-[950px] mt-5 md:mt-6  lg:mt-8">
             {bodyTypes.map((item) => (
               <div key={item.type} 
-                className="bg-white w-[140px] sm:w-[120px] shadow-lg h-[100px] sm:h-[111px] rounded-lg flex flex-col items-center justify-center transition-shadow cursor-pointer hover:shadow-md"
+                className="bg-white w-[140px] sm:w-[120px] lg:shadow-lg h-[100px] sm:h-[111px] rounded-lg flex flex-col items-center justify-center transition-shadow cursor-pointer hover:shadow-md"
               >
                 <div className="w-16 sm:w-20 h-10 sm:h-12 relative mb-2">
                   <Image
@@ -153,45 +149,52 @@ export default function BrowseByCategory() {
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8 bg-[#f5f5f5] w-full lg:px-18">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4 mt-5 md:mt-0 sm:mb-6">Browse Used Cars in UAE by Category</h1>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-10 py-4 sm:py-6 lg:py-8 bg-[#fff] lg:bg-[#f5f5f5] w-full lg:px-18" suppressHydrationWarning={true}>
+      <h1 className="text-[18px] sm:text-2xl font-bold mb-4 mt-5 md:mt-0 sm:mb-6">Browse Used Cars in UAE by Category</h1>
       
-      <Tabs
-        value={selectedTab}
-        onChange={handleTabChange}
-        aria-label="car categories"
-        variant="scrollable"
-        scrollButtons="auto"
-        allowScrollButtonsMobile
-        sx={{
-          borderBottom: 1,
-          borderColor: 'divider',
-          '& .MuiTabs-indicator': {
-            backgroundColor: '#1976d2',
-          },
-          '& .Mui-selected': {
-            color: '#1976d2 !important',
-          },
-          '& .MuiTab-root': {
-            fontSize: { xs: '12px', sm: '14px' },
-            minWidth: { xs: 'auto', sm: '120px' },
-            padding: { xs: '6px 12px', sm: '12px 16px' },
-          }
-        }}
-      >
-        {['BODY STYLE', 'FUEL TYPE', 'TRANSMISSION', 'YEAR', 'CITY'].map((tab) => (
-          <Tab 
-            key={tab}
-            label={tab}
-            value={tab}
-            sx={{ 
-              textTransform: 'uppercase',
-              fontWeight: 500,
-              color: '#666',
-            }} 
-          />
-        ))}
-      </Tabs>
+      <HydrationFix
+        render={(isMounted) => 
+          isMounted ? (
+            <DynamicTabs
+              value={selectedTab}
+              onChange={handleTabChange}
+              aria-label="car categories"
+              variant="scrollable"
+              scrollButtons="auto"
+              allowScrollButtonsMobile
+              sx={{
+                borderBottom: 1,
+                borderColor: 'divider',
+                '& .MuiTabs-indicator': {
+                  backgroundColor: '#1976d2',
+
+                },
+                '& .Mui-selected': {
+                  color: '#1976d2 !important',
+                },
+                '& .MuiTab-root': {
+                  fontSize: { xs: '12px', sm: '14px' },
+                  minWidth: { xs: 'auto', sm: '120px' },
+                  padding: { xs: '6px 12px', sm: '12px 16px' },
+                }
+              }}
+            >
+              {['BODY STYLE', 'FUEL TYPE', 'TRANSMISSION', 'YEAR', 'CITY'].map((tab) => (
+                <DynamicTab 
+                  key={tab}
+                  label={tab}
+                  value={tab}
+                  sx={{ 
+                    textTransform: 'uppercase',
+                    fontWeight: 500,
+                    color: '#666',
+                  }} 
+                />
+              ))}
+            </DynamicTabs>
+          ) : null
+        }
+      />
 
       <div className="mt-4 sm:mt-6 overflow-x-auto">
         {renderContent()}

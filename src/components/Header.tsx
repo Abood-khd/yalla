@@ -8,16 +8,15 @@ const Header = () => {
     <>
     <div className="relative w-full h-full overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0  ">
+      <div className="absolute inset-0 z-0">
           <img 
-          src="/webp_spotlight_web_unnamed__2_.webp" 
+          src="/webp_spotlight_web_VW_Programmatic_Banners_UF_1920x500_YallaMotors.webp" 
           alt="Dubai skyline with car" 
-      
-          className="w-full h-full  object-right md:object-center"
+          className="w-full h-full object-right md:object-center opacity-100"
         />
+        <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}></div>
       </div>
       
-      {/* Overlay for better text readability */}
         
       {/* Content */}
       <div className="relative bottom-10 z-20 container mx-auto h-[50vh] flex flex-col justify-center px-8  md:px-20  lg:mt-12  ">

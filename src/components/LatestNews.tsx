@@ -65,12 +65,12 @@ export default function LatestNews() {
   const sideArticles = filteredArticles.slice(1, 3);
 
   return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-8 lg:py-12">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-8 lg:py-12" suppressHydrationWarning={true}>
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-xl sm:text-4xl font-bold text-gray-900">
           Latest Car News and Reviews in UAE
         </h2>
-        <button className="px-4 py-1.5 text-sm text-[#124d99] hover:bg-[#124d99] hover:text-white border border-[#124d99] rounded transition-colors whitespace-nowrap">
+        <button className="px-4 py-1.5 text-sm text-[#124d99] hover:bg-[#124d99] hover:text-white border border-[#124d99] rounded transition-colors whitespace-nowrap" suppressHydrationWarning={true}>
           View All
         </button>
       </div>
@@ -85,6 +85,7 @@ export default function LatestNews() {
                 ? 'bg-[#F3F6FA]  font-bold  text-[#124d99] border-2 border-[#124d99] '
                 : 'bg-white text-gray-600 border border-gray-200 hover:text-[#124d99]'
             }`}
+            suppressHydrationWarning={true}
           >
             {category}
           </button>
@@ -98,10 +99,10 @@ export default function LatestNews() {
               <Image
                 src={featuredArticle.image}
                 alt={featuredArticle.title}
-                layout="responsive"
                 width={1000}
                 height={800}
                 quality={75}
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
             <div className="space-y-3">
@@ -111,7 +112,7 @@ export default function LatestNews() {
               <p className="text-gray-600 text-sm line-clamp-2">
                 {featuredArticle.excerpt}
               </p>
-              <button className="text-[#124d99] text-sm font-bold hover:underline">
+              <button className="text-[#124d99] text-sm font-bold hover:underline" suppressHydrationWarning={true}>
                 Read More »
               </button>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -154,7 +155,7 @@ export default function LatestNews() {
                       day: '2-digit'
                     })}</span>
                   </div>
-                  <button className="text-[#124d99] text-sm font-medium hover:underline">
+                  <button className="text-[#124d99] text-sm font-medium hover:underline" suppressHydrationWarning={true}>
                     Read More »
                   </button>
                 </div>

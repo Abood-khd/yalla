@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1C1C1C] text-white pt-12 pb-6">
+    <footer className="bg-[#1C1C1C] text-white pt-12 pb-6" suppressHydrationWarning={true}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20">
         {/* Top Section with Logo and TOP button */}
         <div className="flex justify-between items-center mb-12">
@@ -19,6 +19,7 @@ export default function Footer() {
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
               aria-label="Scroll to top"
+              suppressHydrationWarning={true}
             >
               <svg 
                 width="14" 
@@ -161,14 +162,15 @@ export default function Footer() {
                   type="email"
                   placeholder="Enter your email to subscribe"
                   className="flex-1 px-4 py-2 bg-white text-gray-900 rounded-l focus:outline-none"
+                  suppressHydrationWarning={true}
                 />
-                <button className="bg-[#124d99] px-6 py-2 text-white font-bold rounded-r hover:bg-[#0e3d7a] transition-colors">
+                <button className="bg-[#124d99] px-6 py-2 text-white font-bold rounded-r hover:bg-[#0e3d7a] transition-colors" suppressHydrationWarning={true}>
                   JOIN
                 </button>
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4" suppressHydrationWarning={true}>
               <h3 className="text-md font-medium">FOLLOW YALLAMOTOR.COM</h3>
               <div className="flex gap-4">
                 <Link href="https://facebook.com" className="hover:opacity-80 transition-opacity">
@@ -192,7 +194,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4" suppressHydrationWarning={true}>
               <h3 className="text-md font-medium">Download Our Mobile App</h3>
               <div className="flex gap-4">
                 <Link href="https://play.google.com/store" className="hover:opacity-80 transition-opacity">

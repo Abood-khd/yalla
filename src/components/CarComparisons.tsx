@@ -1,14 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Slider from 'react-slick';
+import dynamic from 'next/dynamic';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { Tabs, Tab } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import HydrationFix from './HydrationFix';
+import CustomSlider from './CustomSlider';
+
+const DynamicTabs = dynamic(() => 
+  import('@mui/material').then(mod => mod.Tabs), 
+  { ssr: false }
+);
+const DynamicTab = dynamic(() => 
+  import('@mui/material').then(mod => mod.Tab), 
+  { ssr: false }
+);
+
+import type { TabProps, TabsProps } from '@mui/material';
 
 interface CarComparison {
   car1: {
@@ -172,43 +183,81 @@ const comparisons: CarComparison[] = [
 
 const categories = ['SUV', 'COUPE', 'HATCHBACK', 'SEDAN', 'CROSSOVER'];
 
-const StyledTabs = styled(Tabs)({
-  borderBottom: '1px solid #e0e0e0',
-  '& .MuiTabs-indicator': {
-    backgroundColor: '#124d99',
-    height: 2
-  },
-  '& .MuiTabs-flexContainer': {
-    '@media (max-width: 640px)': {
-      gap: '8px',
-    }
-  }
-});
+const useStyledDynamicTabs = () => {
+  const [StyledComponent, setStyledComponent] = useState<React.ComponentType<TabsProps> | null>(null);
 
-const StyledTab = styled(Tab)({
-  textTransform: 'none',
-  fontWeight: 500,
-  fontSize: '14px',
-  padding: '12px 32px',
-  color: '#9ca3af',
-  '&.Mui-selected': {
-    color: '#124d99',
-  },
-  '&:hover': {
-    color: '#4b5563',
-  },
-  '@media (max-width: 640px)': {
-    padding: '8px 16px',
-    fontSize: '13px',
-    minWidth: 'auto',
-  }
-});
+  useEffect(() => {
+    const createStyledComponent = async () => {
+      try {
+        const { styled } = await import('@mui/material/styles');
+        const styledTabs = styled(DynamicTabs)({
+          borderBottom: '1px solid #e0e0e0',
+          '& .MuiTabs-indicator': {
+            backgroundColor: '#124d99',
+            height: 2
+          },
+          '& .MuiTabs-flexContainer': {
+            '@media (max-width: 640px)': {
+              gap: '8px',
+            }
+          }
+        });
+        setStyledComponent(() => styledTabs);
+      } catch (err) {
+        console.error('Error loading styled component:', err);
+      }
+    };
+    
+    createStyledComponent();
+  }, []);
+
+  return StyledComponent;
+};
+
+const useStyledDynamicTab = () => {
+  const [StyledComponent, setStyledComponent] = useState<React.ComponentType<TabProps> | null>(null);
+
+  useEffect(() => {
+    // Only create the styled component on the client
+    const createStyledComponent = async () => {
+      try {
+        const { styled } = await import('@mui/material/styles');
+        const styledTab = styled(DynamicTab)({
+          textTransform: 'none',
+          fontWeight: 500,
+          fontSize: '14px',
+          padding: '12px 32px',
+          color: '#9ca3af',
+          '&.Mui-selected': {
+            color: '#124d99',
+          },
+          '&:hover': {
+            color: '#4b5563',
+          },
+          '@media (max-width: 640px)': {
+            padding: '8px 16px',
+            fontSize: '13px',
+            minWidth: 'auto',
+          }
+        });
+        setStyledComponent(() => styledTab);
+      } catch (err) {
+        console.error('Error loading styled component:', err);
+      }
+    };
+    
+    createStyledComponent();
+  }, []);
+
+  return StyledComponent;
+};
 
 function NextArrow({ onClick }: { onClick?: () => void }) {
   return (
     <div
       className="slick-arrow slick-next custom-arrow"
       onClick={onClick}
+      suppressHydrationWarning={true}
       style={{
         position: 'absolute',
         right: '-40px',
@@ -236,6 +285,7 @@ function PrevArrow({ onClick }: { onClick?: () => void }) {
     <div
       className="slick-arrow slick-prev custom-arrow"
       onClick={onClick}
+      suppressHydrationWarning={true}
       style={{
         position: 'absolute',
         left: '-40px',
@@ -260,6 +310,8 @@ function PrevArrow({ onClick }: { onClick?: () => void }) {
 
 export default function CarComparisons() {
   const [tabValue, setTabValue] = useState(0);
+  const StyledTabs = useStyledDynamicTabs();
+  const StyledTab = useStyledDynamicTab();
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -278,6 +330,11 @@ export default function CarComparisons() {
     arrows: true,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    appendDots: (dots: React.ReactNode) => (
+      <div suppressHydrationWarning={true}>
+        <ul suppressHydrationWarning={true}>{dots}</ul>
+      </div>
+    ),
     responsive: [
       {
         breakpoint: 1536,
@@ -297,7 +354,7 @@ export default function CarComparisons() {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          dots: true,
+          dots: false,
           arrows: false,
         }
       },
@@ -305,7 +362,7 @@ export default function CarComparisons() {
         breakpoint: 640,
         settings: {
           slidesToShow: 1,
-          dots: true,
+          dots: false,
           arrows: false,
           adaptiveHeight: true,
         }
@@ -314,33 +371,37 @@ export default function CarComparisons() {
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-18 py-12 lg:py-10 bg-[#f5f5f5]">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4 sm:gap-0">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-18 py-12 lg:py-10  bg-[#fff] lg:bg-[#f5f5f5]" suppressHydrationWarning={true}>
+      <div className="flex flex-row sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4 sm:gap-0">
+        <h2 className="text-[17px] sm:text-2xl font-bold text-gray-900">
           Popular New Car Comparisons and prices in UAE
         </h2>
-        <button className="px-4 py-1.5 text-sm border border-[#124d99] text-[#124d99] rounded hover:bg-[#124d99] hover:text-white transition-colors whitespace-nowrap">
+        <button className="px-1 py-0.5 lg:px-4 lg:py-1.5 text-sm border border-[#124d99] text-[#124d99] rounded hover:bg-[#124d99] hover:text-white transition-colors whitespace-nowrap" suppressHydrationWarning={true}>
           Compare
         </button>
       </div>
 
-      <div className="mb-6">
-        <StyledTabs
-          value={tabValue}
-          onChange={handleTabChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          allowScrollButtonsMobile
-          aria-label="car categories tabs"
-        >
-          {categories.map((category, index) => (
-            <StyledTab style={{ fontWeight: 'bold' }} key={index} label={category} />
-          ))}
-        </StyledTabs>
-      </div>
+      <HydrationFix
+        render={(isMounted) => 
+          isMounted && StyledTabs && StyledTab ? (
+            <StyledTabs
+              value={tabValue}
+              onChange={handleTabChange}
+              variant="scrollable"
+              scrollButtons="auto"
+              allowScrollButtonsMobile
+              aria-label="car categories tabs"
+            >
+              {categories.map((category, index) => (
+                <StyledTab style={{ fontWeight: 'bold' }} key={index} label={category} />
+              ))}
+            </StyledTabs>
+          ) : null
+        }
+      />
 
-      <div className="relative px-0 sm:px-8 lg:pb-10">
-        <Slider {...settings} className="comparison-slider">
+      <div className="relative px-0 sm:px-8 lg:pb-10 ">
+        <CustomSlider settings={settings} className="comparison-slider">
           {filteredComparisons.map((comparison, index) => (
             <div key={index} className="px-2">
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-[250px]">
@@ -350,10 +411,10 @@ export default function CarComparisons() {
                       <Image
                         src={comparison.car1.image}
                         alt={comparison.car1.name}
-                        layout="responsive"
                         width={160}
                         height={160}
                         quality={75}
+                        style={{ width: '100%', height: 'auto' }}
                       />
                     </div>
                     <div className="px-2 sm:px-3">
@@ -385,23 +446,23 @@ export default function CarComparisons() {
                     </div>
                     <div className="px-2">
                       <h3 className="text-[15px] font-bold text-gray-800 mb-1 whitespace- overflow-hidden ">
-                        {comparison.car1.name}
+                        {comparison.car2.name}
                       </h3>
                       <p className="text-[14px] text-[#124d99] font-bold">
-                        From AED {comparison.car1.price.toLocaleString()}
+                        From AED {comparison.car2.price.toLocaleString()}
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="px-3 pb-3">
-                  <button className="w-full py-1.5 text-sm text-[#124d99] font-bold border-1 border-[#124d99] rounded hover:bg-[#124d99] hover:text-white transition-colors">
+                  <button className="w-full py-1.5 text-sm text-[#124d99] font-bold border-1 border-[#124d99] rounded hover:bg-[#124d99] hover:text-white transition-colors" suppressHydrationWarning={true}>
                     Compare
                   </button>
                 </div>
               </div>
             </div>
           ))}
-        </Slider>
+        </CustomSlider>
       </div>
 
       <style jsx global>{`

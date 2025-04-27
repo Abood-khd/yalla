@@ -107,7 +107,7 @@ const PopularUsedCars = () => {
       {
         breakpoint: 640,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1.5,
           slidesToScroll: 2,
           arrows: false,
           dots: true,
@@ -116,12 +116,13 @@ const PopularUsedCars = () => {
       },
     ],
     appendDots: (dots: React.ReactNode) => (
-      <div style={{ position: 'relative', bottom: '-20px' }}>
-        <ul style={{ margin: '0', padding: '0' }}>{dots}</ul>
+      <div style={{ position: 'relative', bottom: '-20px' }} suppressHydrationWarning={true}>
+        <ul style={{ margin: '0', padding: '0' }} suppressHydrationWarning={true}>{dots}</ul>
       </div>
     ),
     customPaging: () => (
       <div
+        suppressHydrationWarning={true}
         style={{
           width: '8px',
           height: '8px',
@@ -136,32 +137,34 @@ const PopularUsedCars = () => {
   const currentCars = getCarsByTab(tabValue);
 
   return (
-    <div className="relative w-full lg:max-w-screen-1xl mx-auto lg:px-20 flex items-center gap-10 h-auto bg-[#f5f5f5] mt-10 py-10 lg:pt-28">
+    <div className="relative w-full lg:max-w-screen-1xl mx-auto lg:px-20 flex items-center gap-10 h-auto bg-[#f5f5f5] mt-10 py-10 lg:pt-28" suppressHydrationWarning={true}>
       {/* Main Content */}
       <div className="flex-1 overflow-hidden">
         <div className="flex px-2 md:px-4 lg:px-0  justify-between items-center mb-4">
           <h2 className="text-xl md:text-2xl font-bold text-[#000]">Popular Used Cars in UAE</h2>
-          <button className="text-sm text-[#124d99] border border-[#124d99] rounded-md px-4 py-1 hover:bg-[#124d99] hover:text-white transition-colors">
+          <button className="text-sm text-[#124d99] border border-[#124d99] rounded-md px-4 py-1 hover:bg-[#124d99] hover:text-white transition-colors" suppressHydrationWarning={true}>
             View All
           </button>
         </div>
 
-        <Tabs
-          value={tabValue}
-          onChange={handleChange}
-          aria-label="car tabs"
-          sx={{
-            borderBottom: '1px solid #e0e0e0',
-            '& .MuiTabs-indicator': { backgroundColor: '#124d99' },
-            '& .Mui-selected': { color: '#124d99' },
-            mb: 3,
-          }}
-          className="px-2 md:px-4 lg:px-0 "
-        >
-          <Tab sx={{ color: '#757575', fontWeight: '600', textTransform: 'none' }} label="KAVAK CARS" />
-          <Tab sx={{ color: '#757575', fontWeight: '600', textTransform: 'none' }} label="FEATURED CARS" />
-          <Tab sx={{ color: '#757575', fontWeight: '600', textTransform: 'none' }} label="RECENTLY ADDED" />
-        </Tabs>
+        <div suppressHydrationWarning={true}>
+          <Tabs
+            value={tabValue}
+            onChange={handleChange}
+            aria-label="car tabs"
+            sx={{
+              borderBottom: '1px solid #e0e0e0',
+              '& .MuiTabs-indicator': { backgroundColor: '#124d99' },
+              '& .Mui-selected': { color: '#124d99' },
+              mb: 3,
+            }}
+            className="px-2 md:px-4 lg:px-0 "
+          >
+            <Tab sx={{ color: '#757575', fontWeight: '600', textTransform: 'none' }} label="KAVAK CARS" />
+            <Tab sx={{ color: '#757575', fontWeight: '600', textTransform: 'none' }} label="FEATURED CARS" />
+            <Tab sx={{ color: '#757575', fontWeight: '600', textTransform: 'none' }} label="RECENTLY ADDED" />
+          </Tabs>
+        </div>
 
         <div className="relative mt-4 pb-10">
           <Slider {...settings}>

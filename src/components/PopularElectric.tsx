@@ -3,11 +3,16 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 // import Image from 'next/image';
-import {Rating } from '@mui/material';
+import HydrationFix from './HydrationFix';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import CustomSlider from './CustomSlider';
 
-const Slider = dynamic(() => import('react-slick'), { ssr: false });
+// Dynamically import MUI components
+const DynamicRating = dynamic(() => 
+  import('@mui/material').then(mod => mod.Rating), 
+  { ssr: false }
+);
 
 const carData = [
   { name: 'Geely Starray 2025', price: 'AED 84,900 - AED 104,900', rating: 4.5, image: 'slide_show_Hyundai_Elamtra_Exterior_01.jpg', tag: 'CAR OF THE WEEK' },
@@ -59,7 +64,7 @@ const PopularElectric = () => {
         {
           breakpoint: 480,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 1.5,
             slidesToScroll: 2,
             rows: 1,
             arrows: false,
@@ -67,12 +72,13 @@ const PopularElectric = () => {
         },
       ],
     appendDots: (dots: React.ReactNode) => (
-      <div>
-        <ul >{dots}</ul>
+      <div suppressHydrationWarning={true}>
+        <ul suppressHydrationWarning={true}>{dots}</ul>
       </div>
     ),
     customPaging: () => (
         <div
+          suppressHydrationWarning={true}
           style={{
             width: '10px',
             height: '10px',
@@ -88,18 +94,18 @@ const PopularElectric = () => {
   };
 
   return (
-    <div className="relative w-full lg:max-w-screen-1xl mx-auto lg:px-20  flex items-start gap-10  h-auto">
+    <div className="relative w-full lg:max-w-screen-1xl mx-auto lg:px-20  flex items-start gap-10 mt-5  h-auto" suppressHydrationWarning={true}>
       {/* Main Content */}
       <div className="flex-1 overflow-hidden">
         <div className="flex px-2 md:px-4 lg:px-0  justify-between items-center mb-4">
           <h2 className="md:text-2xl font-bold text-[#000]">Popular Electric Cars in UAE          </h2>
-          <button className="text-sm text-[#124d99] border border-[#124d99] rounded-md px-4 py-1 shadow-md font-medium">View All</button>
+          <button className="text-sm text-[#124d99] border border-[#124d99] rounded-md px-4 py-1 shadow-md font-medium" suppressHydrationWarning={true}>View All</button>
         </div>
 
    
 
         <div className="relative mt-2 lg:h-[74vh]">
-          <Slider {...settings} >
+          <CustomSlider settings={settings}>
             {carData.map((car, index) => (
               <div key={index} className="p-3">
                 <div className="relative bg-white  rounded-lg shadow-md overflow-hidden w-full max-w-[220px] mx-auto">
@@ -120,14 +126,16 @@ const PopularElectric = () => {
                     <p className="text-xs mb-1 text-[#124d99] font-semibold">
                       {car.price}
                     </p>
-                    <p className="text-xs">
-                      <Rating name="read-only" sx={{ fontSize: '13px', color: '#FA7026' }} value={car.rating} readOnly />
-                    </p>
+                    <div className="text-xs">
+                      <HydrationFix render={() => (
+                        <DynamicRating name="read-only" sx={{ fontSize: '13px', color: '#FA7026' }} value={car.rating} readOnly />
+                      )} />
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
-          </Slider>
+          </CustomSlider>
         </div>
       </div>
 

@@ -56,6 +56,7 @@ function NextArrow({ onClick }: ArrowProps) {
     <div
       className="slick-arrow slick-next custom-arrow"
       onClick={onClick}
+      suppressHydrationWarning={true}
       style={{
         position: 'absolute',
         right: '10px',
@@ -76,14 +77,17 @@ function NextArrow({ onClick }: ArrowProps) {
         overflow: 'hidden'
       }}
     >
-      <div style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transform: 'translateX(1px)'
-      }}>
+      <div 
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: 'translateX(1px)'
+        }}
+        suppressHydrationWarning={true}
+      >
         <KeyboardArrowRightIcon sx={{ 
           fontSize: 32,
           color: '#124d99',
@@ -100,6 +104,7 @@ function PrevArrow({ onClick }: ArrowProps) {
     <div
       className="slick-arrow slick-prev custom-arrow"
       onClick={onClick}
+      suppressHydrationWarning={true}
       style={{
         position: 'absolute',
         left: '10px',
@@ -120,14 +125,17 @@ function PrevArrow({ onClick }: ArrowProps) {
         overflow: 'hidden'
       }}
     >
-      <div style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        transform: 'translateX(-2px)'
-      }}>
+      <div 
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: 'translateX(-2px)'
+        }}
+        suppressHydrationWarning={true}
+      >
         <KeyboardArrowLeftIcon sx={{ 
           fontSize: 32,
           color: '#124d99',
@@ -189,19 +197,21 @@ export default function PopularCarPrices() {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
-          dots: false,
+          dots: true,
+          arrows: false,
+          rows: 2,
         }
       }
     ]
   };
 
   return (
-    <div className="container mx-auto px-4  sm:px-6 lg:px-10 py-6 lg:py-10 lg:px-18">
+    <div className="container mx-auto px-4  sm:px-6 lg:px-10 py-6 lg:py-10 lg:px-18" suppressHydrationWarning={true}>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+        <h2 className="text-[18px] sm:text-2xl font-bold text-gray-900">
           Popular New Car Prices in UAE
         </h2>
-        <button className="text-sm text-[#124d99] border border-[#124d99] rounded-md px-4 py-1 hover:bg-[#124d99] hover:text-white transition-colors">
+        <button className="text-sm text-[#124d99] border border-[#124d99] rounded-md px-4 py-1 hover:bg-[#124d99] hover:text-white transition-colors" suppressHydrationWarning={true}>
           View All
         </button>
       </div>
@@ -210,7 +220,7 @@ export default function PopularCarPrices() {
         <Slider ref={sliderRef} {...settings} className="brand-slider">
           {carBrands.map((brand, index) => (
             <div key={index} className="px-2">
-              <div className="bg-white border border-gray-200 h-28  rounded-lg p-2 flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-shadow">
+              <div className="bg-white lg:border border-gray-200 h-28  rounded-lg p-2 flex flex-col items-center justify-center cursor-pointer hover:shadow-md transition-shadow">
                 <div className="w-20 h-20 relative mb-3">
                   <Image
                     src={brand.logo}

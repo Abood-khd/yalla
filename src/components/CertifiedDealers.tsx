@@ -57,12 +57,12 @@ const dealers: Dealer[] = [
 
 export default function CertifiedDealers() {
   return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-8 lg:py-12">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-8 lg:py-12" suppressHydrationWarning={true}>
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-xl sm:text-4xl font-bold text-gray-900">
           Certified Used Car Dealers in UAE
         </h2>
-        <button className="px-4 py-1.5 text-sm text-[#124d99] hover:bg-[#124d99] hover:text-white border border-[#124d99] rounded transition-colors whitespace-nowrap">
+        <button className="px-4 py-1.5 text-sm text-[#124d99] hover:bg-[#124d99] hover:text-white border border-[#124d99] rounded transition-colors whitespace-nowrap" suppressHydrationWarning={true}>
           View All
         </button>
       </div>
@@ -73,15 +73,15 @@ export default function CertifiedDealers() {
             key={dealer.id}
             className="bg-white rounded-md border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-4 sm:p-6 cursor-pointer"
           >
-            <div className="flex items-center gap-4 py-4">
+            <div className="flex items-center gap-4  lg:py-4">
               <div className="flex-shrink-0 w-[120px] h-[40px] relative">
                 <Image
                   src={dealer.logo}
                   alt={dealer.name}
-                  layout="responsive"
                   width={dealer.width}
                   height={dealer.height}
                   quality={75}
+                  style={{ width: '100%', height: 'auto' }}
                 />
               </div>
               <h3 className="text-[#124d99] text-sm font-bold line-clamp-2">

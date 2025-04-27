@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en" className={lato.className}>
       <body
         className="antialiased"
-        suppressHydrationWarning
+        suppressHydrationWarning={true}
       >
         <div className="flex flex-col min-h-screen overflow-hidden">
           <Navbar />

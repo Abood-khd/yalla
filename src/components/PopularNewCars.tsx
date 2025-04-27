@@ -3,11 +3,24 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 import Image from 'next/image';
-import { Tabs, Tab, Rating } from '@mui/material';
+import HydrationFix from './HydrationFix';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import CustomSlider from './CustomSlider';
 
-const Slider = dynamic(() => import('react-slick'), { ssr: false });
+// Dynamically import MUI components - use full path to avoid conflicts
+const DynamicTabs = dynamic(() => 
+  import('@mui/material').then(mod => mod.Tabs), 
+  { ssr: false }
+);
+const DynamicTab = dynamic(() => 
+  import('@mui/material').then(mod => mod.Tab), 
+  { ssr: false }
+);
+const DynamicRating = dynamic(() => 
+  import('@mui/material').then(mod => mod.Rating), 
+  { ssr: false }
+);
 
 const carData = [
   { name: 'Geely Starray 2025', price: 'AED 84,900 - AED 104,900', rating: 4.5, image: 'slide_show_Hyundai_Elamtra_Exterior_01.jpg', tag: 'CAR OF THE WEEK' },
@@ -23,8 +36,6 @@ const carData = [
   { name: 'Mitsubishi Lancer EX 2025', price: 'Price Coming Soon', rating: 4.1, image: 'slide_show_01.png' },   
   { name: 'Mitsubishi Lancer EX 2025', price: 'Price Coming Soon', rating: 4.1, image: 'slide_show_01.png' },   
 ];
-
-
 
 const PopularNewCars = () => {
   const [tabValue, setTabValue] = React.useState(0);
@@ -63,7 +74,7 @@ const PopularNewCars = () => {
         {
           breakpoint: 480,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 1.5,
             slidesToScroll: 2,
             rows: 1,
             arrows: false,
@@ -71,12 +82,13 @@ const PopularNewCars = () => {
         },
       ],
     appendDots: (dots: React.ReactNode) => (
-      <div>
-        <ul >{dots}</ul>
+      <div suppressHydrationWarning={true}>
+        <ul suppressHydrationWarning={true}>{dots}</ul>
       </div>
     ),
     customPaging: () => (
         <div
+          suppressHydrationWarning={true}
           style={{
             width: '10px',
             height: '10px',
@@ -92,30 +104,36 @@ const PopularNewCars = () => {
   };
 
   return (
-    <div className="relative w-full lg:max-w-screen-1xl mx-auto lg:px-20 py-8 flex items-start gap-10  h-auto">
+    <div className="relative w-full lg:max-w-screen-1xl mx-auto lg:px-20 py-8 flex items-start gap-10  h-auto" suppressHydrationWarning={true}>
       {/* Main Content */}
       <div className="flex-1 overflow-hidden">
         <div className="flex px-2 md:px-4 lg:px-0  justify-between items-center mb-4">
           <h2 className="md:text-2xl font-bold text-[#000]">Popular New Cars in UAE</h2>
-          <button className="text-sm text-[#124d99] border border-[#124d99] rounded-md px-4 py-1 shadow-md font-medium">View All</button>
+          <button className="text-sm text-[#124d99] border border-[#124d99] rounded-md px-4 py-1 shadow-md font-medium" suppressHydrationWarning={true}>View All</button>
         </div>
 
-        <Tabs
-          value={tabValue}
-          onChange={handleChange}
-          aria-label="car tabs"
-          sx={{
-            borderBottom: '1px solid #e0e0e0',
-            '& .Mui-selected': { color: '#124d99' },
-          }}
-          className="px-2 md:px-4 lg:px-0 "
-        >
-          <Tab sx={{ color: '#757575', fontWeight: '600' }} label="Buyers Guide" />
-          <Tab sx={{ color: '#757575', fontWeight: '600' }} label="Cars for Sale" />
-        </Tabs>
+        <HydrationFix 
+          className="px-2 md:px-4 lg:px-0"
+          render={(isMounted) => 
+            isMounted ? (
+              <DynamicTabs
+                value={tabValue}
+                onChange={handleChange}
+                aria-label="car tabs"
+                sx={{
+                  borderBottom: '1px solid #e0e0e0',
+                  '& .Mui-selected': { color: '#124d99' },
+                }}
+              >
+                <DynamicTab sx={{ color: '#757575', fontWeight: '600' }} label="Buyers Guide" />
+                <DynamicTab sx={{ color: '#757575', fontWeight: '600' }} label="Cars for Sale" />
+              </DynamicTabs>
+            ) : null
+          }
+        />
 
-        <div className="relative mt-2 lg:h-[74vh]">
-          <Slider {...settings} >
+        <div className="relative mt-4 lg:h-[74vh]">
+          <CustomSlider settings={settings}>
             {carData.map((car, index) => (
               <div key={index} className="p-3">
                 <div className="relative bg-white  rounded-lg shadow-md overflow-hidden w-full max-w-[220px] mx-auto">
@@ -133,17 +151,19 @@ const PopularNewCars = () => {
                     <p className="text-[13px] text-[#000] hover:text-[#124d99]">
                       {car.name}
                     </p>
-                    <p className="text-xs mb-1 text-[#124d99] font-semibold">
+                    <div className="text-xs mb-1 text-[#124d99] font-semibold">
                       {car.price}
-                    </p>
-                    <p className="text-xs">
-                      <Rating name="read-only" sx={{ fontSize: '13px', color: '#FA7026' }} value={car.rating} readOnly />
-                    </p>
+                    </div>
+                    <div className="text-xs">
+                      <HydrationFix render={() => (
+                        <DynamicRating name="read-only" sx={{ fontSize: '13px', color: '#FA7026' }} value={car.rating} readOnly />
+                      )} />
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
-          </Slider>
+          </CustomSlider>
         </div>
       </div>
 
