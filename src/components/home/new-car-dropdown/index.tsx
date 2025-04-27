@@ -23,7 +23,6 @@ const NewCarDropdown = () => {
   return (
     <div className="fixed top-[71px] left-1/2 -translate-x-1/2 w-[700px] bg-white rounded-[12px] shadow-lg">
       <div className="flex w-[700px]">
-        {/* Left Column - Navigation */}
         <div className="bg-[#f8f9fa] py-6 rounded-l-[12px] w-[200px]">
           <div className="space-y-4 px-6">
             <Link 
@@ -83,7 +82,6 @@ const NewCarDropdown = () => {
           </div>
         </div>
                 
-        {/* Right Column - Dynamic Content */}
         <div className="flex flex-1">
           {activeContent === 'bodyStyles' && (
             <>

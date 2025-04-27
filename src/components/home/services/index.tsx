@@ -53,7 +53,7 @@ const Services = () => {
     
       return (
         <>
-          <div className="w-full text-start overflow-hidden">
+          <div className="w-full text-start overflow-hidden mt-10  lg:mt-20">
             <h2 className="text-[18px] lg:text-[33px] mb-5 lg:mb-10 ml-5 lg:ml-18 font-bold">
               Yallamotor Services
             </h2>

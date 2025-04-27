@@ -3,7 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import HydrationFix from './HydrationFix';
+import HydrationFix from '@/app/utils/HydrationFix';
 
 const DynamicTabs = dynamic(() => import('@mui/material/Tabs').then(mod => mod.default), { ssr: false });
 const DynamicTab = dynamic(() => import('@mui/material/Tab').then(mod => mod.default), { ssr: false });

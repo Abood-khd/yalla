@@ -3,16 +3,18 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 // import Image from 'next/image';
-import HydrationFix from './HydrationFix';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import CustomSlider from './CustomSlider';
-
-// Dynamically import MUI components
+import HydrationFix from '@/app/utils/HydrationFix';
 const DynamicRating = dynamic(() => 
   import('@mui/material').then(mod => mod.Rating), 
   { ssr: false }
 );
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
+
+
+
+
 
 const carData = [
   { name: 'Geely Starray 2025', price: 'AED 84,900 - AED 104,900', rating: 4.5, image: 'slide_show_Hyundai_Elamtra_Exterior_01.jpg', tag: 'CAR OF THE WEEK' },
@@ -34,68 +36,85 @@ const carData = [
 const PopularElectric = () => {
 
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 2,
-    rows: 2,
-    arrows: true,
-
-    responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            rows: 2,
-          },
-        },
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            rows: 1,
-            arrows: false,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1.5,
-            slidesToScroll: 2,
-            rows: 1,
-            arrows: false,
-          },
-        },
-      ],
-    appendDots: (dots: React.ReactNode) => (
-      <div suppressHydrationWarning={true}>
-        <ul suppressHydrationWarning={true}>{dots}</ul>
-      </div>
-    ),
-    customPaging: () => (
-        <div
-          suppressHydrationWarning={true}
-          style={{
-            width: '10px',
-            height: '10px',
-            borderRadius: '50%',
-            backgroundColor: '#4D7AB3',
-            position: 'absolute',
-            top: '42px',
-          }}
-          className="slick-dot"
-        />
-      ),
-      
-  };
+   const settings = {
+     dots: true,
+     infinite: false,
+     speed: 500,
+     slidesToShow: 4,
+     slidesToScroll: 1,
+     rows: 2,
+     arrows: true,
+     dotsClass: "slick-dots custom-dots",
+     responsive: [
+       {
+         breakpoint: 1536,
+         settings: {
+           slidesToShow: 4,
+           slidesToScroll: 1,
+           dots: true,
+         },
+       },
+       {
+         breakpoint: 1280,
+         settings: {
+           slidesToShow: 4,
+           slidesToScroll: 1,
+           dots: true,
+         },
+       },
+       {
+         breakpoint: 1024,
+         settings: {
+           slidesToShow: 3,
+           slidesToScroll: 1,
+           dots: true,
+           rows: 1,
+ 
+         },
+       },
+       {
+         breakpoint: 768,
+         settings: {
+           slidesToShow: 3,
+           slidesToScroll: 1,
+           arrows: false,
+           dots: true,
+           rows: 1,
+         },
+       },
+       {
+         breakpoint: 640,
+         settings: {
+           slidesToShow: 2,
+           slidesToScroll: 2,
+           arrows: false,
+           dots: false,
+           rows: 1,
+         },
+       },
+     ],
+     appendDots: (dots: React.ReactNode) => (
+       <div style={{ position: 'relative', bottom: '-20px' }} suppressHydrationWarning={true}>
+         <ul style={{ margin: '0', padding: '0' }} suppressHydrationWarning={true}>{dots}</ul>
+       </div>
+     ),
+ 
+     customPaging: () => (
+       <div
+         suppressHydrationWarning={true}
+         style={{
+           width: '8px',
+           height: '8px',
+           borderRadius: '50%',
+           backgroundColor: '#4D7AB3',
+           margin: '0 4px',
+         }}
+       />
+     ),
+   };
 
   return (
     <div className="relative w-full lg:max-w-screen-1xl mx-auto lg:px-20  flex items-start gap-10 mt-5  h-auto" suppressHydrationWarning={true}>
-      {/* Main Content */}
       <div className="flex-1 overflow-hidden">
         <div className="flex px-2 md:px-4 lg:px-0  justify-between items-center mb-4">
           <h2 className="md:text-2xl font-bold text-[#000]">Popular Electric Cars in UAE          </h2>
@@ -105,7 +124,7 @@ const PopularElectric = () => {
    
 
         <div className="relative mt-2 lg:h-[74vh]">
-          <CustomSlider settings={settings}>
+          <Slider {...settings} >
             {carData.map((car, index) => (
               <div key={index} className="p-3">
                 <div className="relative bg-white  rounded-lg shadow-md overflow-hidden w-full max-w-[220px] mx-auto">
@@ -135,11 +154,10 @@ const PopularElectric = () => {
                 </div>
               </div>
             ))}
-          </CustomSlider>
+          </Slider>
         </div>
       </div>
 
-      {/* Right Ad */}
       <div className="hidden xl:block w-[250px] h-[530px] flex-shrink-0  mt-12">
         {/* <Image src="/ads.png" alt="ads" width={260} height={100} className="rounded-md " /> */}
       </div>

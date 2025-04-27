@@ -35,7 +35,6 @@ const allCarsData: CarData[] = [
   { name: 'New Toyota FJ Cruiser 4.0L 1 Final Edition 4WD 2023', price: 'AED 172,000', location: 'Dubai', mileage: 0, year: 2023, transmission: 'Automatic', image: '/webp_slide_show_IMG-20250306-WA0025.webp', featured: true, photos: 16 },
   { name: 'New Toyota FJ Cruiser 4.0L 1 Final Edition 4WD 2023', price: 'AED 172,000', location: 'Dubai', mileage: 0, year: 2023, transmission: 'Automatic', image: '/webp_slide_show_IMG-20250306-WA0025.webp', featured: true, photos: 16 },
   { name: 'New Toyota FJ Cruiser 4.0L 1 Final Edition 4WD 2023', price: 'AED 172,000', location: 'Dubai', mileage: 0, year: 2023, transmission: 'Automatic', image: '/webp_slide_show_IMG-20250306-WA0025.webp', featured: true, photos: 16 },
-  // Add more cars as needed...
 ];
 
 const PopularUsedCars = () => {
@@ -120,6 +119,7 @@ const PopularUsedCars = () => {
         <ul style={{ margin: '0', padding: '0' }} suppressHydrationWarning={true}>{dots}</ul>
       </div>
     ),
+
     customPaging: () => (
       <div
         suppressHydrationWarning={true}
@@ -206,7 +206,6 @@ const PopularUsedCars = () => {
         </div>
       </div>
 
-      {/* Right Ad */}
       <div className="hidden xl:block w-[250px] h-[530px] flex-shrink-0 mt-12">
         <Image src="/ads2.png" alt="ads2" width={260} height={100} className="rounded-md" />
       </div>

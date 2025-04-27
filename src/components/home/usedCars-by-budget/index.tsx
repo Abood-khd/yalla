@@ -1,14 +1,17 @@
 "use client";
 
 import React from "react";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 interface BudgetCategory {
   price: number;
   count: string;
 }
+
+
 
 export default function UsedCarsByBudget() {
   const categories: BudgetCategory[] = [
@@ -44,9 +47,27 @@ export default function UsedCarsByBudget() {
       },
       {
         breakpoint: 9999,
-        settings: "unslick",
+        settings: "unslick" as const,
       },
     ],
+       appendDots: (dots: React.ReactNode) => (
+           <div style={{ position: 'relative', bottom: '-20px' }} suppressHydrationWarning={true}>
+             <ul style={{ margin: '0', padding: '0' }} suppressHydrationWarning={true}>{dots}</ul>
+           </div>
+         ),
+     
+         customPaging: () => (
+           <div
+             suppressHydrationWarning={true}
+             style={{
+               width: '8px',
+               height: '8px',
+               borderRadius: '50%',
+               backgroundColor: '#4D7AB3',
+               margin: '0 4px',
+             }}
+           />
+         ),
   };
 
   return (
@@ -71,7 +92,7 @@ export default function UsedCarsByBudget() {
         </div>
 
         <div className="block md:hidden mt-5 w-full max-w-[360px] mx-auto">
-  <Slider {...sliderSettings}>
+    <Slider {...sliderSettings}>
     {categories.map((category, index) => (
       <div
         key={index}

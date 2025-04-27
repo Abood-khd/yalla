@@ -27,7 +27,7 @@ const articles: Article[] = [
     id: '2',
     image: '/thumb_Cover-Image-The-New-Toyota-Land-Cruiser-2024.jpg',
     title: 'Top 10 Most Searched Used Cars in UAE Right Now',
-    excerpt: 'Looking for a reliable used car in the UAE? Discover the 10 most se...',
+    excerpt: 'Looking for a reliable used car in the UAE? Discover the 10 most searched...',
     author: 'Ahmad Rashad Al Zeer',
     date: '2025-04-24',
     category: 'Car Reviews'
@@ -36,7 +36,7 @@ const articles: Article[] = [
     id: '3',
     image: '/thumb_car-dealer-5.jpg',
     title: 'How to Sell Your Car in the UAE from Abroad: Step-by-Step Guide',
-    excerpt: 'Learn how to sell your car in the UAE from abroad with our step-by...',
+    excerpt: 'Learn how to sell your car in the UAE from abroad with our step-by-step guide...',
     author: 'Ahmad Rashad Al Zeer',
     date: '2025-04-23',
     category: 'YallaMotor Tips'
@@ -57,35 +57,34 @@ const categories = ['All', 'Car News', 'New Launches', 'Car Reviews', 'YallaMoto
 export default function LatestNews() {
   const [activeTab, setActiveTab] = useState('All');
 
-  const filteredArticles = activeTab === 'All' 
-    ? articles 
+  const filteredArticles = activeTab === 'All'
+    ? articles
     : articles.filter(article => article.category === activeTab);
 
   const featuredArticle = filteredArticles[0];
-  const sideArticles = filteredArticles.slice(1, 3);
+  const sideArticles = filteredArticles.slice(1, 4);
 
   return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-20 py-8 lg:py-12" suppressHydrationWarning={true}>
-      <div className="flex justify-between items-center mb-8">
-        <h2 className="text-xl sm:text-4xl font-bold text-gray-900">
+    <div className=" mx-auto px-4 sm:px-6 lg:px-20 py-8" suppressHydrationWarning>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <h2 className="text-2xl sm:text-4xl font-bold text-gray-900">
           Latest Car News and Reviews in UAE
         </h2>
-        <button className="px-4 py-1.5 text-sm text-[#124d99] hover:bg-[#124d99] hover:text-white border border-[#124d99] rounded transition-colors whitespace-nowrap" suppressHydrationWarning={true}>
+        <button className="px-4 py-1 text-sm sm:text-base text-[#124d99] hover:bg-[#124d99] hover:text-white border border-[#124d99] rounded transition-colors">
           View All
         </button>
       </div>
 
-      <div className="flex flex-wrap gap-3 mb-8">
+      <div className="flex gap-2 sm:gap-3 overflow-x-auto mb-8 scrollbar-hide">
         {categories.map((category) => (
           <button
             key={category}
             onClick={() => setActiveTab(category)}
-            className={`px-6 py-2 text-sm rounded-full text-gray-600  transition-colors cursor-pointer ${
+            className={`flex-shrink-0 px-4 sm:px-6 py-2 text-sm sm:text-base rounded-full border transition-colors whitespace-nowrap ${
               activeTab === category
-                ? 'bg-[#F3F6FA]  font-bold  text-[#124d99] border-2 border-[#124d99] '
-                : 'bg-white text-gray-600 border border-gray-200 hover:text-[#124d99]'
+                ? 'bg-[#F3F6FA] text-[#124d99] border-[#124d99] font-bold'
+                : 'bg-white text-gray-600 border-gray-200 hover:text-[#124d99]'
             }`}
-            suppressHydrationWarning={true}
           >
             {category}
           </button>
@@ -93,71 +92,60 @@ export default function LatestNews() {
       </div>
 
       {featuredArticle && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <div className="relative  overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-4">
+            <div className="relative w-full h-60 sm:h-96 overflow-hidden rounded-lg">
               <Image
                 src={featuredArticle.image}
                 alt={featuredArticle.title}
-                width={1000}
-                height={800}
-                quality={75}
-                style={{ width: '100%', height: 'auto' }}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 66vw"
               />
             </div>
-            <div className="space-y-3">
-              <h3 className="text-xl font-bold text-gray-900 line-clamp-2 hover:text-[#124d99] cursor-pointer transition-colors">
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold text-gray-900 hover:text-[#124d99] cursor-pointer line-clamp-2">
                 {featuredArticle.title}
               </h3>
               <p className="text-gray-600 text-sm line-clamp-2">
                 {featuredArticle.excerpt}
               </p>
-              <button className="text-[#124d99] text-sm font-bold hover:underline" suppressHydrationWarning={true}>
+              <button className="text-[#124d99] text-sm font-bold hover:underline">
                 Read More »
               </button>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <span>By: {featuredArticle.author}</span>
                 <span>•</span>
-                <span>{new Date(featuredArticle.date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: '2-digit',
-                  day: '2-digit'
-                })}</span>
+                <span>{new Date(featuredArticle.date).toLocaleDateString('en-US')}</span>
               </div>
-         
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="flex flex-col gap-6">
             {sideArticles.map((article) => (
-              <div key={article.id} className="flex gap-4">
-                <div className="relative w-[150px] aspect-[4/3] flex-shrink-0  overflow-hidden">
+              <div key={article.id} className="flex gap-4 items-start">
+                <div className="relative w-[100px] h-[75px] flex-shrink-0 overflow-hidden rounded">
                   <Image
                     src={article.image}
                     alt={article.title}
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 100px"
                   />
                 </div>
-                <div className="space-y-2">
-                  <h3 className="text-base font-bold text-gray-900 line-clamp-2 hover:text-[#124d99] cursor-pointer transition-colors">
+                <div className="flex-1 space-y-1">
+                  <h3 className="text-sm font-bold text-gray-900 hover:text-[#124d99] cursor-pointer line-clamp-2">
                     {article.title}
                   </h3>
-                  <p className="text-gray-600 text-sm line-clamp-2">
-                    {article.excerpt}
-                  </p>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <span>By: {article.author}</span>
-                    <span>•</span>
-                    <span>{new Date(article.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: '2-digit',
-                      day: '2-digit'
-                    })}</span>
-                  </div>
-                  <button className="text-[#124d99] text-sm font-medium hover:underline" suppressHydrationWarning={true}>
+                  <p className="text-gray-600 text-xs line-clamp-2">{article.excerpt}</p>
+                  <button className="text-[#124d99] text-xs font-bold hover:underline">
                     Read More »
                   </button>
+                  <div className="flex items-center gap-2 text-[11px] text-gray-500 mt-1">
+                    <span>By: {article.author}</span>
+                    <span>•</span>
+                    <span>{new Date(article.date).toLocaleDateString('en-US')}</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -166,4 +154,4 @@ export default function LatestNews() {
       )}
     </div>
   );
-} 
+}

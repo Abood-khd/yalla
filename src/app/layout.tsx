@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
-import "./globals.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import "./styles/globals.css";
+
+import MobileBottomNav from "@/app/@core/layout/MobileBottomNav";
+import Navbar from "./@core/layout/Navbar";
+import Footer from "./@core/layout/Footer";
 
 const lato = Lato({
   weight: ['400', '700'],
@@ -33,6 +35,7 @@ export default function RootLayout({
           <Navbar />
           <div className="flex-1">{children}</div>
           <Footer />
+          <MobileBottomNav />
         </div>
       </body>
     </html>

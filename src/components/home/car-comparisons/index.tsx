@@ -7,8 +7,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import HydrationFix from './HydrationFix';
-import CustomSlider from './CustomSlider';
+
 
 const DynamicTabs = dynamic(() => 
   import('@mui/material').then(mod => mod.Tabs), 
@@ -20,6 +19,8 @@ const DynamicTab = dynamic(() =>
 );
 
 import type { TabProps, TabsProps } from '@mui/material';
+import HydrationFix from '@/app/utils/HydrationFix';
+import CustomSlider from '@/app/hooks/CustomSlider';
 
 interface CarComparison {
   car1: {

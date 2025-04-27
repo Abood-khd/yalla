@@ -1,0 +1,15 @@
+.customDots li {
+  margin: 0 4px;
+}
+
+.customDots li button:before {
+  font-size: 12px;
+  color: #124D99 !important;  
+  opacity: 1;
+}
+
+.customDots li.slick-active button:before {
+  color: #124D99 !important;  
+  opacity: 1;
+  
+}

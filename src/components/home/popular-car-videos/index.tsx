@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import YouTubeIcon from '@mui/icons-material/YouTube';
-import CustomSlider from './CustomSlider';
+import CustomSlider from '@/app/hooks/CustomSlider';
 
 interface CarVideo {
   id: string;

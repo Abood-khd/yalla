@@ -1,19 +1,19 @@
-import Header from "@/components/Header";
+import Header from "@/components/home/header";
 import dynamic from 'next/dynamic';
 
 
-const Services = dynamic(() => import('@/components/Services'));
-const Brands = dynamic(() => import('@/components/Brands'));
-const PopularNewCars = dynamic(() => import('@/components/PopularNewCars'));
-const PopularElectric = dynamic(() => import('@/components/PopularElectric'));
-const PopularUsedCars = dynamic(() => import('@/components/PopularUsedCars'));
-const UsedCarsByBudget = dynamic(() => import('@/components/UsedCarsByBudget'));
-const BrowseByCategory = dynamic(() => import('@/components/BrowseByCategory'));
-const PopularCarPrices = dynamic(() => import('@/components/PopularCarPrices'));
-const CarComparisons = dynamic(() => import('@/components/CarComparisons'));
-const PopularCarVideos = dynamic(() => import('@/components/PopularCarVideos'));
-const CertifiedDealers = dynamic(() => import('@/components/CertifiedDealers'));
-const LatestNews = dynamic(() => import('@/components/LatestNews'));
+const Services = dynamic(() => import('@/components/home/services'));
+const Brands = dynamic(() => import('@/components/home/brand'));
+const PopularNewCars = dynamic(() => import('@/components/home/popular-new-cars'));
+const PopularElectric = dynamic(() => import('@/components/home/popular-electric'));
+const PopularUsedCars = dynamic(() => import('@/components/home/popular-used-cars'));
+const UsedCarsByBudget = dynamic(() => import('@/components/home/usedCars-by-budget'));
+const BrowseByCategory = dynamic(() => import('@/components/home/browse-by-category'));
+const PopularCarPrices = dynamic(() => import('@/components/home/popular-car-prices'));
+const CarComparisons = dynamic(() => import('@/components/home/car-comparisons'));
+const PopularCarVideos = dynamic(() => import('@/components/home/popular-car-videos'));
+const CertifiedDealers = dynamic(() => import('@/components/home/certified-dealers'));
+const LatestNews = dynamic(() => import('@/components/home/latest-news'));
 
 export default function Home() {
   return (

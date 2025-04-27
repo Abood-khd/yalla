@@ -202,7 +202,25 @@ export default function PopularCarPrices() {
           rows: 2,
         }
       }
-    ]
+    ],
+      appendDots: (dots: React.ReactNode) => (
+               <div style={{ position: 'relative', bottom: '-20px' }} suppressHydrationWarning={true}>
+                 <ul style={{ margin: '0', padding: '0' }} suppressHydrationWarning={true}>{dots}</ul>
+               </div>
+             ),
+         
+             customPaging: () => (
+               <div
+                 suppressHydrationWarning={true}
+                 style={{
+                   width: '8px',
+                   height: '8px',
+                   borderRadius: '50%',
+                   backgroundColor: '#4D7AB3',
+                   margin: '0 4px',
+                 }}
+               />
+             ),
   };
 
   return (

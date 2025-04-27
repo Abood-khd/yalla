@@ -1,11 +1,12 @@
 "use client";
 
+import NewCarDropdown from '@/components/home/new-car-dropdown';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
-import NewCarDropdown from './NewCarDropdown';
 import UserDrawer from './UserDrawer';
+
 
 interface Country {
   code: string;
@@ -18,10 +19,7 @@ const countries: Country[] = [
   { code: 'UAE', name: 'UAE', flagSrc: '/images/flags/uae.svg' },
   { code: 'KSA', name: 'KSA', flagSrc: '/images/flags/ksa.svg' },
   { code: 'EGYPT', name: 'EGYPT', flagSrc: '/images/flags/egypt.svg' },
-  // { code: 'QATAR', name: 'QATAR', flagSrc: '/images/flags/qatar.svg' },
-  // { code: 'OMAN', name: 'OMAN', flagSrc: '/images/flags/oman.svg' },
-  // { code: 'KUWAIT', name: 'KUWAIT', flagSrc: '/images/flags/kuwait.svg' },
-  // { code: 'BAHRAIN', name: 'BAHRAIN', flagSrc: '/images/flags/bahrain.svg' },
+ 
 ];
 
 const Navbar = () => {
@@ -61,11 +59,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white text-[#0f1420]' : 'bg-transparent text-white'} flex justify-between items-center`}>
-      {/* Top Navigation Bar */}
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'shadow-md bg-white text-[#0f1420]' : 'bg-transparent text-white'} flex justify-between items-center`}>
       <div className="container mx-auto px-4 lg:px-18">
         <div className="flex items-center justify-between h-[71px]">
-          {/* Logo and Country Selector - Left Side */}
           <div className="flex items-center">
             <Link href="/" className="nav-item">
               <div className="relative w-[150px] h-[40px]">
@@ -104,7 +100,6 @@ const Navbar = () => {
               <span className="text-sm font-medium tracking-wide">{selectedCountry.code}</span>
               <MdKeyboardArrowDown className={`w-5 h-5 transition-transform duration-200 ${isCountryDropdownOpen ? 'rotate-180' : ''}`} />
               
-              {/* Country Dropdown */}
               {isCountryDropdownOpen && (
                 <div className="country-dropdown">
                   {countries.map((country) => (
@@ -137,7 +132,6 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Desktop Navigation - Center */}
           <div className="hidden md:w-full md:flex md:justify-end md:items-center">
             <Link 
               href="/offers" 
@@ -224,13 +218,11 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* Right Side Actions */}
           <div className="flex items-center justify-end">
              <Link href="/sell-my-car" className="hidden md:block px-4 py-1.5 bg-[#00c269] hover:bg-[#00b05e] rounded-[6px] text-white text-sm font-medium transition-colors whitespace-nowrap mr-4">
                 Sell My Car
              </Link>
             <div className="flex flex-row-reverse items-center">
-              {/* User Icon Button to open drawer */}
               <button 
                 className="flex items-center justify-center p-2 rounded-full cursor-pointer"
                 onClick={() => setIsUserDrawerOpen(true)}
@@ -249,7 +241,6 @@ const Navbar = () => {
                 </svg>
               </button>
               
-              {/* Hidden User Dropdown for Desktop */}
               <div 
                 className="hidden md:flex relative ml-2"
                 onMouseEnter={() => setIsUserDropdownOpen(true)}
@@ -275,7 +266,6 @@ const Navbar = () => {
                   </div>
                 </button>
                 
-                {/* User Dropdown */}
                 {isUserDropdownOpen && (
                   <div className="absolute top-full right-0 mt-1 w-auto bg-white rounded-[8px] shadow-lg overflow-hidden z-10 text-black">
                     <div className="p-5 flex justify-between items-center gap-3">
@@ -295,7 +285,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* MUI Drawer */}
       <UserDrawer 
         open={isUserDrawerOpen} 
         onClose={() => setIsUserDrawerOpen(false)} 
